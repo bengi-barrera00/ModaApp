@@ -6,6 +6,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import pe.edu.senati.barrera.modaapp.data.DBHelper
 import pe.edu.senati.barrera.modaapp.databinding.ActivityLoginBinding
+import pe.edu.senati.barrera.modaapp.util.Ui
 
 class LoginActivity : AppCompatActivity() {
 
@@ -15,6 +16,7 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         b = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(b.root)
+        Ui.ajustar(this, b.root)
 
         b.btnIngresar.setOnClickListener {
 

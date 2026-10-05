@@ -6,6 +6,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import pe.edu.senati.barrera.modaapp.util.Ui
 import pe.edu.senati.barrera.modaapp.databinding.ActivityMenuBinding
 
 class MenuActivity : AppCompatActivity() {
@@ -18,12 +19,14 @@ class MenuActivity : AppCompatActivity() {
         b = ActivityMenuBinding.inflate(layoutInflater)
         setContentView(b.root)
 
-        ViewCompat.setOnApplyWindowInsetsListener(b.root) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
-        }
+        Ui.ajustar(this, b.root, b.header)
 
+        val usuario = intent.getStringExtra("usuario") ?: ""
+        b.tvUsuario.text = getString(R.string.hola, usuario)
+        b.tvRol.text = getString(R.string.rol, intent.getStringExtra("rol") ?: "")
+        b.tvAvatar.text = usuario.take(1).uppercase()
+
+        b.tvUsuario.text = "${intent.getStringExtra("usuario")} · ${intent.getStringExtra("rol")}"
         b.btnRopa.setOnClickListener { startActivity(Intent(this, RopaActivity::class.java)) }
         b.btnPedidos.setOnClickListener { startActivity(Intent(this, PedidosActivity::class.java)) }
         b.btnClientes.setOnClickListener { startActivity(Intent(this, ClientesActivity::class.java)) }
