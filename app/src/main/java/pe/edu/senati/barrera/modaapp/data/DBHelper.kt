@@ -4,10 +4,8 @@ import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import pe.edu.senati.barrera.modaapp.model.Usuario
-import pe.edu.senati.barrera.modaapp.model.Categoria
-import pe.edu.senati.barrera.modaapp.model.Ropa
 
-class DBHelper(ctx: Context) : SQLiteOpenHelper(ctx, "modaapp.db", null, 1) {
+class DBHelper(ctx: Context) : SQLiteOpenHelper(ctx, "modaapp.db", null, 2) {
 
     override fun onConfigure(db: SQLiteDatabase) {
         super.onConfigure(db)
@@ -33,9 +31,31 @@ class DBHelper(ctx: Context) : SQLiteOpenHelper(ctx, "modaapp.db", null, 1) {
         listOf("Polos", "Pantalones", "Vestidos", "Casacas", "Zapatillas").forEach {
             db.execSQL("INSERT INTO categoria(nombre) VALUES(?)", arrayOf(it))
         }
+
+        crearTablasPedidos(db)
     }
 
-    override fun onUpgrade(db: SQLiteDatabase, old: Int, new: Int) { /* Sprint 3 */ }
+    override fun onUpgrade(db: SQLiteDatabase, old: Int, new: Int) {
+        if (old < 2) crearTablasPedidos(db)
+    }
+
+    private fun crearTablasPedidos(db: SQLiteDatabase) {
+        db.execSQL("""CREATE TABLE cliente(
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            telefono TEXT UNIQUE NOT NULL, nombres TEXT NOT NULL,
+            apellidos TEXT NOT NULL, fecha_registro TEXT)""")
+        db.execSQL("""CREATE TABLE pedido(
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            id_cliente INTEGER NOT NULL, fecha TEXT, total REAL,
+            estado TEXT NOT NULL DEFAULT 'PENDIENTE', fecha_atencion TEXT,
+            FOREIGN KEY(id_cliente) REFERENCES cliente(id))""")
+        db.execSQL("""CREATE TABLE detalle_pedido(
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            id_pedido INTEGER NOT NULL, id_ropa INTEGER NOT NULL,
+            cantidad INTEGER CHECK(cantidad > 0), precio_unit REAL, subtotal REAL,
+            FOREIGN KEY(id_pedido) REFERENCES pedido(id) ON DELETE CASCADE,
+            FOREIGN KEY(id_ropa) REFERENCES ropa(id))""")
+    }
 
     fun validarUsuario(u: String, c: String): Usuario? {
         readableDatabase.rawQuery(

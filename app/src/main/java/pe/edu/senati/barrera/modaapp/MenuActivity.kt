@@ -22,7 +22,6 @@ class MenuActivity : AppCompatActivity() {
         Ui.ajustar(this, b.root, b.header)
 
         val usuario = intent.getStringExtra("usuario") ?: ""
-        b.tvUsuario.text = getString(R.string.hola, usuario)
         b.tvRol.text = getString(R.string.rol, intent.getStringExtra("rol") ?: "")
         b.tvAvatar.text = usuario.take(1).uppercase()
 
