@@ -1,3 +1,15 @@
 <resources>
     <string name="app_name">ModaApp</string>
+    <string name="usuario">Usuario</string>
+    <string name="clave">Contraseña</string>
+    <string name="ingresar">Ingresar</string>
+    <string name="ver_catalogo">Ver catálogo</string>
+    <string name="err_campo">Campo obligatorio</string>
+    <string name="cred_incorrectas">Credenciales incorrectas</string>
+    <string name="ropa">Ropa</string>
+    <string name="pedidos">Pedidos</string>
+    <string name="clientes">Clientes</string>
+    <string name="reportes">Reportes</string>
+    <string name="salir">Salir</string>
+    <string name="carrito">Carrito</string>
 </resources>

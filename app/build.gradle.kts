@@ -7,6 +7,7 @@ android {
     compileSdk {
         version = release(37)
     }
+    buildFeatures { viewBinding = true }
 
     defaultConfig {
         applicationId = "pe.edu.senati.barrera.modaapp"

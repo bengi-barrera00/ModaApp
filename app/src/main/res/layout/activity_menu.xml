@@ -1,0 +1,20 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:orientation="vertical" android:padding="16dp">
+
+    <GridLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:columnCount="2">
+        <Button android:id="@+id/btnRopa" android:layout_width="0dp" android:layout_height="100dp"
+            android:layout_columnWeight="1" android:layout_margin="6dp" android:text="@string/ropa"/>
+        <Button android:id="@+id/btnPedidos" android:layout_width="0dp" android:layout_height="100dp"
+            android:layout_columnWeight="1" android:layout_margin="6dp" android:text="@string/pedidos"/>
+        <Button android:id="@+id/btnClientes" android:layout_width="0dp" android:layout_height="100dp"
+            android:layout_columnWeight="1" android:layout_margin="6dp" android:text="@string/clientes"/>
+        <Button android:id="@+id/btnReportes" android:layout_width="0dp" android:layout_height="100dp"
+            android:layout_columnWeight="1" android:layout_margin="6dp" android:text="@string/reportes"/>
+    </GridLayout>
+
+    <Button android:id="@+id/btnSalir" android:layout_width="match_parent"
+        android:layout_height="wrap_content" android:text="@string/salir"
+        android:backgroundTint="@color/negro" android:layout_marginTop="16dp"/>
+</LinearLayout>
