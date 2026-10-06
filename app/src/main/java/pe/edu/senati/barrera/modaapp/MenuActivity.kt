@@ -4,10 +4,9 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-import pe.edu.senati.barrera.modaapp.util.Ui
 import pe.edu.senati.barrera.modaapp.databinding.ActivityMenuBinding
+import pe.edu.senati.barrera.modaapp.util.Sesion
+import pe.edu.senati.barrera.modaapp.util.Ui
 
 class MenuActivity : AppCompatActivity() {
 
@@ -31,6 +30,7 @@ class MenuActivity : AppCompatActivity() {
         b.btnClientes.setOnClickListener { startActivity(Intent(this, ClientesActivity::class.java)) }
         b.btnReportes.setOnClickListener { startActivity(Intent(this, ReportesActivity::class.java)) }
         b.btnSalir.setOnClickListener {
+            Sesion.cerrar(this)   // HU-13: borra la sesión guardada
             startActivity(Intent(this, LoginActivity::class.java))
             finish()
         }
