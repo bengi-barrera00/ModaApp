@@ -25,7 +25,29 @@ class RopaDao(ctx: Context) {
         return helper.writableDatabase.insert("ropa", null, v)
     }
 
-    fun listar(): List<Ropa> = consultar("SELECT * FROM ropa ORDER BY id DESC", null)
+    fun listar(filtro: String = ""): List<Ropa> {
+        if (filtro.isBlank()) return consultar("SELECT * FROM ropa ORDER BY id DESC", null)
+        val f = "%${filtro.trim()}%"
+        return consultar(
+            "SELECT * FROM ropa WHERE modelo LIKE ? OR marca LIKE ? OR color LIKE ? ORDER BY id DESC",
+            arrayOf(f, f, f)
+        )
+    }
+
+    fun obtener(id: Int): Ropa? =
+        consultar("SELECT * FROM ropa WHERE id=?", arrayOf(id.toString())).firstOrNull()
+
+    fun actualizar(r: Ropa): Int {
+        val v = ContentValues().apply {
+            put("modelo", r.modelo); put("id_categoria", r.idCategoria); put("talla", r.talla)
+            put("marca", r.marca); put("color", r.color); put("precio", r.precio)
+            put("cantidad", r.cantidad); put("foto", r.foto)
+        }
+        return helper.writableDatabase.update("ropa", v, "id=?", arrayOf(r.id.toString()))
+    }
+
+    fun eliminar(id: Int): Int =
+        helper.writableDatabase.delete("ropa", "id=?", arrayOf(id.toString()))
 
     fun listarDisponibles(idCategoria: Int?): List<Ropa> =
         if (idCategoria == null)

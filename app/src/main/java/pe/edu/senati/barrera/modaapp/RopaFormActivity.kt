@@ -1,18 +1,21 @@
 package pe.edu.senati.barrera.modaapp
 
+import android.database.sqlite.SQLiteConstraintException
 import android.os.Bundle
+import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.Toast
+import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.result.contract.ActivityResultContracts.PickVisualMedia
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import pe.edu.senati.barrera.modaapp.data.RopaDao
 import pe.edu.senati.barrera.modaapp.databinding.ActivityRopaFormBinding
 import pe.edu.senati.barrera.modaapp.model.Categoria
 import pe.edu.senati.barrera.modaapp.model.Ropa
 import pe.edu.senati.barrera.modaapp.util.Fotos
-import androidx.activity.enableEdgeToEdge
 import pe.edu.senati.barrera.modaapp.util.Ui
 import java.io.File
 
@@ -21,6 +24,9 @@ class RopaFormActivity : AppCompatActivity() {
     private lateinit var b: ActivityRopaFormBinding
     private val dao by lazy { RopaDao(this) }
     private var rutaFoto: String? = null
+    private var rutaOriginal: String? = null
+    private var idEdicion = 0
+    private val tallas = listOf("XS", "S", "M", "L", "XL")
     private lateinit var categorias: List<Categoria>
 
     private val pickMedia = registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
@@ -53,7 +59,7 @@ class RopaFormActivity : AppCompatActivity() {
         b.spTalla.adapter = ArrayAdapter(
             this,
             android.R.layout.simple_spinner_dropdown_item,
-            listOf("XS", "S", "M", "L", "XL")
+            tallas
         )
 
         b.btnFoto.setOnClickListener {
@@ -61,6 +67,34 @@ class RopaFormActivity : AppCompatActivity() {
         }
 
         b.btnGuardar.setOnClickListener { guardar() }
+        b.btnEliminar.setOnClickListener { confirmarEliminar() }
+
+        idEdicion = intent.getIntExtra("id", 0)
+        if (idEdicion != 0) cargarParaEditar()
+    }
+
+    private fun cargarParaEditar() {
+        val r = dao.obtener(idEdicion)
+        if (r == null) {
+            finish()
+            return
+        }
+
+        b.tvTitulo.setText(R.string.editar_prenda)
+        b.etModelo.setText(r.modelo)
+        b.etMarca.setText(r.marca)
+        b.etColor.setText(r.color)
+        b.etPrecio.setText(r.precio.toString())
+        b.etCantidad.setText(r.cantidad.toString())
+        b.spCategoria.setSelection(categorias.indexOfFirst { it.id == r.idCategoria }.coerceAtLeast(0))
+        b.spTalla.setSelection(tallas.indexOf(r.talla).coerceAtLeast(0))
+
+        rutaFoto = r.foto
+        rutaOriginal = r.foto
+        b.ivFoto.setImageBitmap(Fotos.cargar(rutaFoto, 600))
+
+        b.btnGuardar.setText(R.string.actualizar)
+        b.btnEliminar.visibility = View.VISIBLE
     }
 
     private fun guardar() {
@@ -81,20 +115,46 @@ class RopaFormActivity : AppCompatActivity() {
 
         if (modelo.isEmpty() || precio == null || precio <= 0 || cantidad == null || cantidad < 0 || rutaFoto == null) return
 
-        dao.insertar(
-            Ropa(
-                modelo = modelo,
-                idCategoria = categorias[b.spCategoria.selectedItemPosition].id,
-                talla = b.spTalla.selectedItem.toString(),
-                marca = b.etMarca.text.toString().trim(),
-                color = b.etColor.text.toString().trim(),
-                precio = precio,
-                cantidad = cantidad,
-                foto = rutaFoto!!
-            )
+        val ropa = Ropa(
+            id = idEdicion,
+            modelo = modelo,
+            idCategoria = categorias[b.spCategoria.selectedItemPosition].id,
+            talla = b.spTalla.selectedItem.toString(),
+            marca = b.etMarca.text.toString().trim(),
+            color = b.etColor.text.toString().trim(),
+            precio = precio,
+            cantidad = cantidad,
+            foto = rutaFoto!!
         )
 
-        Toast.makeText(this, "Prenda guardada", Toast.LENGTH_SHORT).show()
+        if (idEdicion == 0) {
+            dao.insertar(ropa)
+            Toast.makeText(this, "Prenda guardada", Toast.LENGTH_SHORT).show()
+        } else {
+            dao.actualizar(ropa)
+            if (rutaOriginal != null && rutaOriginal != rutaFoto) File(rutaOriginal!!).delete()
+            Toast.makeText(this, "Prenda actualizada", Toast.LENGTH_SHORT).show()
+        }
         finish()
+    }
+
+    private fun confirmarEliminar() {
+        AlertDialog.Builder(this)
+            .setTitle(R.string.eliminar)
+            .setMessage("¿Eliminar esta prenda?")
+            .setPositiveButton(R.string.eliminar) { _, _ -> eliminar() }
+            .setNegativeButton(android.R.string.cancel, null)
+            .show()
+    }
+
+    private fun eliminar() {
+        try {
+            dao.eliminar(idEdicion)
+            rutaFoto?.let { File(it).delete() }
+            Toast.makeText(this, "Prenda eliminada", Toast.LENGTH_SHORT).show()
+            finish()
+        } catch (e: SQLiteConstraintException) {
+            Toast.makeText(this, R.string.err_eliminar, Toast.LENGTH_LONG).show()
+        }
     }
 }

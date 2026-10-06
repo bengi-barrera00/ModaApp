@@ -34,4 +34,9 @@
     <string name="cantidad">Cantidad</string>
     <string name="precio">Precio (S/)</string>
     <string name="guardar">Guardar</string>
+    <string name="eliminar">Eliminar</string>
+    <string name="actualizar">Actualizar</string>
+    <string name="editar_prenda">Editar prenda</string>
+    <string name="buscar">Buscar por modelo, marca o color</string>
+    <string name="err_eliminar">No se puede eliminar: tiene pedidos</string>
 </resources>

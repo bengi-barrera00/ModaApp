@@ -4,18 +4,19 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
+import androidx.core.widget.doAfterTextChanged
 import pe.edu.senati.barrera.modaapp.adapter.RopaAdapter
-import pe.edu.senati.barrera.modaapp.util.Ui
 import pe.edu.senati.barrera.modaapp.data.RopaDao
 import pe.edu.senati.barrera.modaapp.databinding.ActivityRopaBinding
+import pe.edu.senati.barrera.modaapp.util.Ui
 
 class RopaActivity : AppCompatActivity() {
 
     private lateinit var b: ActivityRopaBinding
     private val dao by lazy { RopaDao(this) }
-    private val adapter = RopaAdapter(emptyList())
+    private val adapter = RopaAdapter(emptyList()) { r ->
+        startActivity(Intent(this, RopaFormActivity::class.java).putExtra("id", r.id))
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,6 +28,7 @@ class RopaActivity : AppCompatActivity() {
         b.btnAtras.setOnClickListener { finish() }
 
         b.rvRopa.adapter = adapter
+        b.etBuscar.doAfterTextChanged { cargar() }
         b.fabNuevo.setOnClickListener {
             startActivity(Intent(this, RopaFormActivity::class.java))
         }
@@ -34,6 +36,8 @@ class RopaActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        adapter.actualizar(dao.listar())
+        cargar()
     }
+
+    private fun cargar() = adapter.actualizar(dao.listar(b.etBuscar.text.toString()))
 }
