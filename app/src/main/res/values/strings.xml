@@ -39,4 +39,10 @@
     <string name="editar_prenda">Editar prenda</string>
     <string name="buscar">Buscar por modelo, marca o color</string>
     <string name="err_eliminar">No se puede eliminar: tiene pedidos</string>
+    <string name="mi_carrito">Mi carrito</string>
+    <string name="carrito_vacio">Tu carrito está vacío</string>
+    <string name="quitar_hint">Mantén presionado para quitar</string>
+    <string name="total">Total</string>
+    <string name="hacer_pedido">Hacer pedido</string>
+    <string name="mas">+</string>
 </resources>

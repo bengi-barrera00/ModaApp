@@ -7,8 +7,10 @@ import pe.edu.senati.barrera.modaapp.databinding.ItemCatalogoBinding
 import pe.edu.senati.barrera.modaapp.model.Ropa
 import pe.edu.senati.barrera.modaapp.util.Fotos
 
-class CatalogoAdapter(private var items: List<Ropa>) :
-    RecyclerView.Adapter<CatalogoAdapter.VH>() {
+class CatalogoAdapter(
+    private var items: List<Ropa>,
+    private val onAgregar: (Ropa) -> Unit
+) : RecyclerView.Adapter<CatalogoAdapter.VH>() {
 
     class VH(val b: ItemCatalogoBinding) : RecyclerView.ViewHolder(b.root)
 
@@ -24,6 +26,9 @@ class CatalogoAdapter(private var items: List<Ropa>) :
         val bmp = Fotos.cargar(r.foto, 300)
         if (bmp != null) h.b.ivFoto.setImageBitmap(bmp)
         else h.b.ivFoto.setImageResource(android.R.drawable.ic_menu_gallery)
+
+        h.b.btnAgregar.setOnClickListener { onAgregar(r) }
+        h.b.root.setOnClickListener { onAgregar(r) }
     }
 
     override fun getItemCount() = items.size

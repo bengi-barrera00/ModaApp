@@ -1,10 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".CarritoActivity">
+    android:orientation="vertical">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <LinearLayout
+        android:id="@+id/header"
+        android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:background="@color/rosa_oscuro" android:gravity="center_vertical"
+        android:orientation="horizontal">
+        <ImageButton
+            android:id="@+id/btnAtras"
+            android:layout_width="48dp" android:layout_height="48dp"
+            android:layout_marginStart="8dp" android:background="@null"
+            android:contentDescription="@string/volver" android:src="@drawable/ic_atras" />
+        <TextView
+            android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:padding="12dp" android:text="@string/mi_carrito"
+            android:textColor="@color/blanco" android:textSize="22sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent" android:layout_height="0dp"
+        android:layout_weight="1">
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvCarrito"
+            android:layout_width="match_parent" android:layout_height="match_parent"
+            android:clipToPadding="false" android:padding="12dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+        <TextView
+            android:id="@+id/tvVacio"
+            android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:layout_gravity="center" android:text="@string/carrito_vacio"
+            android:textColor="@color/gris_texto" android:textSize="16sp"
+            android:visibility="gone" />
+    </FrameLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:orientation="vertical" android:padding="16dp">
+        <TextView
+            android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:text="@string/quitar_hint" android:textColor="@color/gris_texto" />
+        <LinearLayout
+            android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:layout_marginTop="8dp" android:gravity="center_vertical"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="0dp" android:layout_height="wrap_content"
+                android:layout_weight="1" android:text="@string/total"
+                android:textColor="@color/negro" android:textSize="20sp"
+                android:textStyle="bold" />
+            <TextView
+                android:id="@+id/tvTotal"
+                android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:textColor="@color/rosa_oscuro" android:textSize="24sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+        <Button
+            android:id="@+id/btnPedido" style="@style/BotonPrimario"
+            android:layout_width="match_parent" android:layout_height="56dp"
+            android:layout_marginTop="12dp" android:text="@string/hacer_pedido" />
+    </LinearLayout>
+</LinearLayout>
