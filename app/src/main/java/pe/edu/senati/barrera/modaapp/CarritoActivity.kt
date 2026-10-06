@@ -9,6 +9,7 @@ import pe.edu.senati.barrera.modaapp.adapter.CarritoAdapter
 import pe.edu.senati.barrera.modaapp.databinding.ActivityCarritoBinding
 import pe.edu.senati.barrera.modaapp.model.Carrito
 import pe.edu.senati.barrera.modaapp.model.ItemCarrito
+import android.content.Intent
 import pe.edu.senati.barrera.modaapp.util.Ui
 
 class CarritoActivity : AppCompatActivity() {
@@ -25,6 +26,10 @@ class CarritoActivity : AppCompatActivity() {
         Ui.ajustar(this, b.root, b.header)
         b.btnAtras.setOnClickListener { finish() }
         b.rvCarrito.adapter = adapter
+
+        b.btnPedido.setOnClickListener {
+            startActivity(Intent(this, PedidoActivity::class.java))
+        }
     }
 
     override fun onResume() {

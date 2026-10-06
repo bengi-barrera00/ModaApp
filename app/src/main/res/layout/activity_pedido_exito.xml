@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/main"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/header"
+        android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:background="@color/rosa_oscuro" android:gravity="center_vertical"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:padding="16dp" android:text="@string/pedido_registrado_titulo"
+            android:textColor="@color/blanco" android:textSize="22sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent" android:layout_height="0dp"
+        android:layout_weight="1" android:fillViewport="true">
+        <LinearLayout
+            android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:orientation="vertical" android:padding="16dp">
+
+            <TextView
+                android:id="@+id/tvNumero"
+                android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:textColor="@color/rosa_oscuro" android:textSize="24sp"
+                android:textStyle="bold" />
+            <TextView
+                android:id="@+id/tvResumen"
+                android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:layout_marginTop="12dp" android:textColor="@color/negro"
+                android:textSize="16sp" />
+
+            <View
+                android:layout_width="match_parent" android:layout_height="1dp"
+                android:layout_marginTop="16dp" android:background="@color/borde" />
+
+            <TextView
+                android:id="@+id/tvTotal"
+                android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:layout_marginTop="12dp" android:gravity="end"
+                android:textColor="@color/negro" android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:layout_marginTop="20dp" android:text="@string/aviso_enviar"
+                android:textColor="@color/gris_texto" />
+
+            <Button
+                android:id="@+id/btnMiWhatsapp" style="@style/BotonPrimario"
+                android:layout_width="match_parent" android:layout_height="56dp"
+                android:layout_marginTop="12dp" android:text="@string/enviar_mi_whatsapp" />
+            <Button
+                android:id="@+id/btnTienda" style="@style/BotonPrimario"
+                android:layout_width="match_parent" android:layout_height="56dp"
+                android:layout_marginTop="8dp" android:text="@string/avisar_tienda" />
+            <Button
+                android:id="@+id/btnCatalogo" style="@style/BotonSecundario"
+                android:layout_width="match_parent" android:layout_height="56dp"
+                android:layout_marginTop="8dp" android:text="@string/volver_catalogo" />
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

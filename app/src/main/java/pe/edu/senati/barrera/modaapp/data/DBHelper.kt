@@ -64,4 +64,12 @@ class DBHelper(ctx: Context) : SQLiteOpenHelper(ctx, "modaapp.db", null, 2) {
             return if (cur.moveToFirst()) Usuario(cur.getInt(0), cur.getString(1), cur.getString(2)) else null
         }
     }
+
+    fun telefonoAdmin(): String {
+        readableDatabase.rawQuery(
+            "SELECT telefono FROM usuario WHERE rol = 'ADMIN' LIMIT 1", null
+        ).use { c ->
+            return if (c.moveToFirst()) c.getString(0) ?: "" else ""
+        }
+    }
 }

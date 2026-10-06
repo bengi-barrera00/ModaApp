@@ -45,4 +45,23 @@
     <string name="total">Total</string>
     <string name="hacer_pedido">Hacer pedido</string>
     <string name="mas">+</string>
+    <string name="datos_pedido">Datos del pedido</string>
+    <string name="telefono">Teléfono (9 dígitos)</string>
+    <string name="nombres">Nombres</string>
+    <string name="apellidos">Apellidos</string>
+    <string name="continuar">Continuar</string>
+    <string name="confirmar_pedido">Confirmar pedido</string>
+    <string name="numero_nuevo">Número nuevo: completa tus datos</string>
+    <string name="err_telefono">Ingresa los 9 dígitos de tu teléfono</string>
+    <string name="pedido_registrado">Pedido #%1$d registrado</string>
+    <plurals name="prendas">
+        <item quantity="one">%d prenda</item>
+        <item quantity="other">%d prendas</item>
+    </plurals>
+    <string name="pedido_registrado_titulo">Pedido registrado</string>
+    <string name="enviar_mi_whatsapp">Enviar a mi WhatsApp</string>
+    <string name="avisar_tienda">Avisar a la tienda</string>
+    <string name="volver_catalogo">Volver al catálogo</string>
+    <string name="sin_whatsapp">WhatsApp no está instalado</string>
+    <string name="aviso_enviar">En WhatsApp solo toca «Enviar»: el mensaje ya está escrito.</string>
 </resources>
