@@ -74,4 +74,8 @@
     <string name="stock_insuficiente">Stock insuficiente: %1$s</string>
     <string name="si">Sí</string>
     <string name="no">No</string>
+    <string name="atendidos_mes">Pedidos atendidos del mes</string>
+    <string name="monto_mes">Monto vendido del mes</string>
+    <string name="stock_prendas">Stock por prenda (rojo = quedan 3 o menos)</string>
+    <string name="sin_clientes">Aún no hay clientes</string>
 </resources>
