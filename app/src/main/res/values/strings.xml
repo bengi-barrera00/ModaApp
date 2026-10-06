@@ -64,4 +64,14 @@
     <string name="volver_catalogo">Volver al catálogo</string>
     <string name="sin_whatsapp">WhatsApp no está instalado</string>
     <string name="aviso_enviar">En WhatsApp solo toca «Enviar»: el mensaje ya está escrito.</string>
+    <string name="pendientes">Pendientes</string>
+    <string name="atendidos">Atendidos</string>
+    <string name="detalle_pedido">Detalle del pedido</string>
+    <string name="marcar_atendido">Marcar como atendido</string>
+    <string name="sin_pedidos">No hay pedidos</string>
+    <string name="confirmar_atender">¿Marcar este pedido como atendido? Se descontará el stock.</string>
+    <string name="pedido_atendido">Pedido atendido</string>
+    <string name="stock_insuficiente">Stock insuficiente: %1$s</string>
+    <string name="si">Sí</string>
+    <string name="no">No</string>
 </resources>
